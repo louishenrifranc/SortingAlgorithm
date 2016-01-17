@@ -18,15 +18,15 @@ public class Graphe extends JPanel
 {
 
     private static final int    Largeur           = 1200;                 // dimension
-									   // de
-									   // la
-									   // fenetre
+	                                                                   // de
+	                                                                   // la
+	                                                                   // fenetre
     private static int          MaxTemps;
     private static int          MaxNbrDep;
     private static int          MaxNbrVal;
     private static final int    Hauteur           = 650;
     private static final int    BORDER_GAP        = 30;                   // La
-									   // bordure
+	                                                                   // bordure
     private static final Color  GRAPH_COLOR       = Color.green;
     private static final Color  AXE_COLOR         = Color.WHITE;
     private static final Color  GRAPH_POINT_COLOR = Color.blue;
