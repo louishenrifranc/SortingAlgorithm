@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  <title>ALGORITHMIQUE I: Tri par s&eacute;lection </title>
+  <link rel="stylesheet" type="text/css" href="algo.css">
+  <SCRIPT language="JavaScript1.2" src="./algo.js"></SCRIPT>
+</head>
+<body>
+
+<table class="synthese">
+  <tr class="synthese">
+      <td class="titresynthese">Algorithme</td>
+      <td class="valeursynthesealgo">Tri par s&eacute;lection</td>
+  </tr>
+  <tr class="synthese">
+      <td class="titresynthese">entr&eacute;e</td>
+      <td class="valeursynthese">Un tableau <i>T</i>[1,<i>n</i>] de valeurs d'un ensemble totalement ordonn&eacute;.</td>
+  </tr> 
+  <tr class="synthese">
+      <td class="titresynthese">sortie</td>
+      <td class="valeursynthese">Le tableau tri&eacute;</td>
+   </tr>
+   <tr class="synthese">
+        <td class="titresynthese">complexit&eacute;</td>
+	<td class="valeursynthese"><i>T</i>(<i>n</i>) = &Theta;(<i>n</i><sup>2</sup>)</td>
+    </tr>
+    <tr class="synthese">
+        <td class="titresynthese">sources C</td>
+	<td class="valeursynthese"><a href="/SOURCES-C/tri-selection.c">tri-selection.c</a></td>
+    </tr>
+</table>
+<div class="DM"><script language="JavaScript">DM();</script></div>
+
+<a name="sommaire"></a>
+<P CLASS="nonumsection">
+Sommaire
+<BR>
+<ol>
+<li><a href="#modelisation">Problème et modélisation</a>
+<li><a href="#description">Description de l'algorithme</a>
+<li><a href="#validite">Validité de l'algorithme</a>
+<li><a href="#sources">Notes sur les sources en langage C</a>
+<li><a href="#complexite">Complexité de l'algorithme</a>
+<li><a href="#exercices">Exercices</a>
+</ol>
+</p>
+
+<P CLASS="section">
+Probl&egrave;me et mod&eacute;lisation.
+<BR>
+ 
+On cherche &agrave; trier les valeurs d'une liste rang&eacute;es dans une structure de tableau dans l'ordre croissant.
+</p>
+
+<P CLASS="section">
+Description de l'algorithme.
+<BR>
+ 
+Il s'agit probablement de l'algorithme le plus simple que l'on puisse concevoir pour trier un tableau. Cet algorithme recherche la plus petite valeur contenue dans le tableau et l'&eacute;change avec la valeur contenue dans la premi&egrave;re cellule du tableau puis reprend la m&ecirc;me d&eacute;marche sur le sous-tableau restant <i>T</i>[2,<i>n</i>] et ainsi de suite. Bien entendu on peut proc&eacute;der de la m&ecirc;me fa&ccedil;on avec la plus grande valeur en la pla&ccedil;ant en queue de tableau. 
+</p>
+
+<pre class="algorithme"><span class="motclef">algorithme</span> TRI-SELECTION(@T);
+<span class="motclef">données</span>
+   T[1,n]: tableau de valeurs;
+<span class="motclef">variables</span>
+   idxmin,d: entiers;
+<span class="motclef">debut</span>
+   d &larr; 1;
+   <span class="motclef">TQ</span> (d < n) <span class="motclef">FAIRE</span>
+      idxmin &larr; <a href="./CHERCHER-MIN-TAB.html">CHERCHER-MIN</a>(T,d,n);
+      <a href="./ECHANGER-TAB.html">ECHANGER</a>(T,d,idxmin);  
+      d &larr; d + 1;
+   <span class="motclef">FTQ</span>
+<span class="motclef">fin</span>.</span>
+</pre>
+
+
+
+<P CLASS="section">
+Validit&eacute; de l'algorithme.
+<BR>
+ 
+L'algorithme se termine car la variable <i>d</i> initialis&eacute;e &agrave; 1 est incr&eacute;ment&eacute;e &agrave; chaque passage dans la boucle et assurera n&eacute;cessairement la condition de sortie de boucle <i>d</i> &ge; <i>n</i>. Si l'on suppose que l'assertion "Le sous-tableau <i>T</i>[1, <i>d</i> - 1] est tri&eacute;" est vraie avant 
+l'ex&eacute;cution des instructions de la boucle, il est facile de montrer que cette assertion est toujours vraie apr&egrave;s l'ex&eacute;cution de ces instructions. L'assertion &eacute;tant vraie pour <i>d</i> = 1, &agrave; la sortie de la boucle <i>d</i> = <i>n</i> + 1, et ceci assure la validit&eacute; de l'algorithme.
+</p>
+
+<P CLASS="section">
+Notes sur les sources en langage C.
+<BR>
+
+Rien &agrave; signaler, si ce n'est l'indexation des tableaux qui commence &agrave; 0 en C.
+
+</p>
+
+<P CLASS="section">
+complexit&eacute; de l'algorithme.
+<BR>
+La complexit&eacute; de la boucle interne est &eacute;gale &agrave; &Theta;(1)&nbsp;+&nbsp;&Theta;(<i>n</i> - <i>d</i>) puisque la complexit&eacute; de l'algorithme <a class="algo" href="./CHERCHER-MIN-TAB.html" target="_blank">Rechercher-Min</a> est &eacute;gale &agrave; &Theta;(<i>n</i> - <i>d</i>). Le co&ucirc;t de l'unique instruction hors de la boucle externe est &Theta;(1), la complexit&eacute; totale est donc &eacute;gale &agrave; la somme&nbsp;
+&sum;
+<table style="border: 0px solid ; padding: 1px; font-size: 100%; text-align: left; margin-left: auto; margin-right: auto;">
+<tr>
+<td align=right valign=bottom><i>T</i>(<i>n</i>) =&nbsp;</td>
+<td>&Theta;(1) + &sum;<sub><i>d</i>&nbsp;&isin;&nbsp[1, <i>n</i> - 1]</sub> &Theta;(1) + &Theta;(<i>n</i> - <i>d</i>)
+</td>
+</tr>
+<tr>
+<td  align=right> =&nbsp;</td>
+<td>&Theta;(1)&nbsp;+&nbsp;&Theta;(<i>n</i>)&nbsp;+&nbsp;&sum;<sub><i>d</i>&nbsp;&isin;&nbsp[1, <i>n</i> - 1]</sub> &Theta;(<i>d</i>)</td>
+</tr>
+<tr>
+<td  align=right> =&nbsp;</td>
+<td>&Theta;(<i>n</i>)&nbsp;+&nbsp;&Theta;(<i>n</i><sup>2</sup>)</td>
+</tr>
+</table>
+Et finalement 
+<div class="equation">
+<font color=white><i>T</i>(<i>n</i>)&nbsp;=&nbsp;&Theta;(<i>n</i><sup>2</sup>)</font>
+
+
+</div>
+</p>
+</body>
+</html>
