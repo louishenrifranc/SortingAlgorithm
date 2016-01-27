@@ -14,6 +14,10 @@ import javax.swing.JPanel;
 
 import Constante.Constante;
 
+/**
+ * @author lh
+ *
+ */
 public class Graphe extends JPanel
 {
 
@@ -131,7 +135,6 @@ public class Graphe extends JPanel
 	g2.drawLine( BORDER_GAP , getHeight() - BORDER_GAP , getWidth()
 	        - BORDER_GAP , getHeight() - BORDER_GAP );
 
-	// create hatch marks for y axis.
 	for (int i = 0; i < Y_HATCH_CNT; i++)
 	{
 	    int x0 = BORDER_GAP;
@@ -146,7 +149,6 @@ public class Graphe extends JPanel
 		    + BORDER_GAP  );
 	}
 
-	// and for x axis
 	for (int i = 1; i < largeur; i++)
 	{
 	    int x0 = ( int ) ( ( xScale ) * biginteger[X][i].intValue() + BORDER_GAP );
@@ -205,7 +207,7 @@ public class Graphe extends JPanel
 	        4 * BORDER_GAP , ( 3 + nbre ) * BORDER_GAP );
 	g2.drawString( Constante.algorithme[code] , 5 * BORDER_GAP ,
 	        ( 3 + nbre ) * BORDER_GAP );
-
+        g2.setStroke(new BasicStroke(3));
 	for (int i = 0; i < largeur - 2; i++)
 	{
 	    // System.out.print(" "+m_matrice[ligne][i]);

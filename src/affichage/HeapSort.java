@@ -7,6 +7,10 @@ import java.awt.Graphics;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * @author lh
+ *
+ */
 public class HeapSort extends TriPanel
 {
     private static final long  serialVersionUID = 1L;

@@ -46,6 +46,10 @@ import javax.swing.event.ChangeListener;
 import Constante.Constante;
 import affichage.Affichage;
 
+/**
+ * @author lh
+ *
+ */
 public class Menu extends JFrame
 {
 

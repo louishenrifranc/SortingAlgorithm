@@ -5,6 +5,10 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
+/**
+ * @author lh
+ *
+ */
 public abstract class TriPanel extends JPanel implements Runnable
 {
 

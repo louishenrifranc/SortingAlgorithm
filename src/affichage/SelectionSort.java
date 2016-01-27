@@ -4,6 +4,10 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.text.DecimalFormat;
 
+/**
+ * @author lh
+ *
+ */
 public class SelectionSort extends TriPanel
 {
     private int barreRouge  = -2;

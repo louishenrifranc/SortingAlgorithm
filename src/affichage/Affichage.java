@@ -20,6 +20,10 @@ import statistique.StatistiqueFenetre;
 import statistique.StatistiqueFenetre.StatistiqueFenetreWorker;
 import Constante.Constante;
 
+/**
+ * @author lh
+ *
+ */
 public class Affichage extends JFrame
 {
 

@@ -19,6 +19,10 @@ import javax.swing.SwingWorker;
 
 import Constante.Constante;
 
+/**
+ * @author lh
+ *
+ */
 public class StatistiqueFenetre extends JFrame
 {
 

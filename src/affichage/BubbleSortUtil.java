@@ -1,6 +1,5 @@
 package affichage;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.text.DecimalFormat;
@@ -9,7 +8,7 @@ import java.text.DecimalFormat;
  * @author lh
  *
  */
-public class QuickSort extends TriPanel
+public class BubbleSortUtil extends TriPanel
 {
     /**
 	 * 
@@ -17,15 +16,15 @@ public class QuickSort extends TriPanel
     private static final long serialVersionUID = 1L;
     private int               barreRouge       = -2;
     private int               barreVerte       = -2;
-    private int               barreOrange      = -2;
-    private int               barreJaune       = -2;
+
     private int               nombreSleep      = 0;
 
-    public QuickSort(String nom, int temps_animation, double largeur,
+    public BubbleSortUtil(String nom, int temps_animation, double largeur,
 	    double longeur)
     {
 	super( nom , temps_animation );
-	SIGNAL_FIN = 0;
+	// TODO Auto-generated constructor stub
+
     }
 
     @Override
@@ -34,8 +33,6 @@ public class QuickSort extends TriPanel
 	// TODO Auto-generated method stub
 	barreVerte = -2;
 	barreRouge = -2;
-	barreOrange = -2;
-	barreJaune = -2;
 	tempsTri = 0;
 	nombreValeurDeplace = 0;
     }
@@ -46,6 +43,7 @@ public class QuickSort extends TriPanel
 
 	int columnWidth = ( getWidth() - 4 * BORDER_WIDTH ) / taille;
 	int columnHeight = ( getHeight() - 4 * BORDER_WIDTH ) / valeurmax;
+	if (columnHeight == 0 || columnWidth == 0) System.out.println( "La" );
 	if (SIGNAL_FIN == -1)
 	{
 
@@ -55,7 +53,6 @@ public class QuickSort extends TriPanel
 	    df.setMinimumFractionDigits( 10 );
 	    df.setDecimalSeparatorAlwaysShown( true );
 	    g.setFont( timerFont );
-	    g.setFont( timerFont );
 	    int x = ( getWidth() - timerFontMetrix
 		    .stringWidth( ( "Temps de Tri:" + tempsTri
 		            + " Nombre de valeur deplace " + nombreValeurDeplace ) ) ) / 2;
@@ -63,13 +60,14 @@ public class QuickSort extends TriPanel
 	    g.drawString( "Temps de Tri " + df.format( tempsTri )
 		    + " Nombre de valeur deplace " + nombreValeurDeplace , x ,
 		    y );
+	    SIGNAL_FIN = 0;
 	}
 	else
 	{
 
 	    for (int i = 0; i < ( barreVerte == -2 ? taille : barreVerte ); i++)
 	    {
-		g.setColor( java.awt.Color.GREEN );
+		g.setColor( java.awt.Color.WHITE );
 
 		g.fillRect( 2 * BORDER_WIDTH + columnWidth * i , getHeight()
 		        - list.get( i ) * columnHeight - 2 * BORDER_WIDTH ,
@@ -82,7 +80,7 @@ public class QuickSort extends TriPanel
 	    {
 		for (int i = barreVerte; i < taille; i++)
 		{
-		    g.setColor( java.awt.Color.white );
+		    g.setColor( java.awt.Color.GREEN );
 		    g.fillRect( 2 * BORDER_WIDTH + columnWidth * i ,
 			    getHeight() - list.get( i ) * columnHeight - 2
 			            * BORDER_WIDTH , columnWidth , list.get( i )
@@ -105,97 +103,7 @@ public class QuickSort extends TriPanel
 		                * BORDER_WIDTH , columnWidth ,
 		        list.get( barreRouge ) * columnHeight );
 	    }
-	    if (barreOrange != -2)
-	    {
-		g.setColor( Color.ORANGE );
-		g.fillRect( 2 * BORDER_WIDTH + columnWidth * barreOrange ,
-		        getHeight() - list.get( barreOrange ) * columnHeight
-		                - 2 * BORDER_WIDTH , columnWidth ,
-		        list.get( barreOrange ) * columnHeight );
-		g.drawRect( 2 * BORDER_WIDTH + columnWidth * barreOrange ,
-		        getHeight() - list.get( barreOrange ) * columnHeight
-		                - 2 * BORDER_WIDTH , columnWidth ,
-		        list.get( barreOrange ) * columnHeight );
-	    }
-	    if (barreJaune != -2)
-	    {
-		g.setColor( Color.YELLOW );
-		g.fillRect( 2 * BORDER_WIDTH + columnWidth * barreJaune ,
-		        getHeight() - list.get( barreJaune ) * columnHeight - 2
-		                * BORDER_WIDTH , columnWidth ,
-		        list.get( barreJaune ) * columnHeight );
-		g.drawRect( 2 * BORDER_WIDTH + columnWidth * barreJaune ,
-		        getHeight() - list.get( barreJaune ) * columnHeight - 2
-		                * BORDER_WIDTH , columnWidth ,
-		        list.get( barreJaune ) * columnHeight );
-	    }
-
 	}
-    }
-
-    private void quicksort(int low, int high) throws InterruptedException
-    {
-	int i = low;
-	int j = high;
-	Thread.sleep( temps_animation );
-	nombreSleep++;
-	repaint();
-	int pivot = list.get( low + ( high - low ) / 2 );
-	barreRouge = low + ( high - low ) / 2;
-	while (i <= j)
-	{
-	    while (list.get( i ) < pivot)
-	    {
-		i++;
-		barreOrange = i;
-		Thread.sleep( temps_animation );
-		nombreSleep++;
-		repaint();
-	    }
-	    while (list.get( j ) > pivot)
-	    {
-		j--;
-		barreJaune = j;
-		Thread.sleep( temps_animation );
-		nombreSleep++;
-		repaint();
-	    }
-
-	    if (i <= j)
-	    {
-		int temp = list.get( i );
-		list.set( i , list.get( j ) );
-		list.set( j , temp );
-		nombreValeurDeplace += 2;
-		if (i == barreRouge)
-		{
-		    barreRouge = j;
-		}
-		else if (j == barreRouge)
-		{
-		    barreRouge = i;
-		}
-		Thread.sleep( temps_animation );
-		nombreSleep++;
-		repaint();
-		i++;
-		j--;
-	    }
-	}
-	if (low > barreVerte)
-	{
-	    barreVerte = low;
-	}
-	if (low < j)
-	{
-	    quicksort( low , j );
-	}
-	if (i < high)
-	{
-	    quicksort( i , high );
-	}
-
-	repaint();
     }
 
     @Override
@@ -203,22 +111,51 @@ public class QuickSort extends TriPanel
     {
 	try
 	{
+	    nombreSleep = 0;
+	    int swap;
 	    long tempsFin = 0;
 	    long tempsDebut = System.currentTimeMillis();
-	    quicksort( 0 , list.size() - 1 );
+	    boolean listedejatrie = false;
+	    for (int c = 1; c < taille && !listedejatrie; c++)
+	    {
+		// listedejatrie=true;
+		for (int d = 0; d < taille - c; d++)
+		{
+		    barreRouge = d;
+		    repaint();
+		    Thread.sleep( temps_animation );
+		    nombreSleep++;
+		    if (list.get( d ) > list.get( d + 1 ))
+		    {
+			barreRouge = d + 1;
+			nombreValeurDeplace += 2;
+			swap = list.get( d );
+			list.set( d , list.get( d + 1 ) );
+			list.set( d + 1 , swap );
+			repaint();
+			Thread.sleep( temps_animation );
+			nombreSleep++;
+		    }
+
+		}
+		barreVerte = list.size() - c;
+		repaint();
+		nombreSleep++;
+		Thread.sleep( temps_animation );
+	    }
+
 	    tempsFin = System.currentTimeMillis();
-	    SIGNAL_FIN = -1;
 	    tempsTri = ( Math.abs( tempsDebut - tempsFin ) - ( nombreSleep * temps_animation ) ) / 1000F;
+
+	    SIGNAL_FIN = -1;
 	    repaint();
-	    barreVerte = -2;
-	    barreRouge = -2;
-	    barreOrange = barreJaune = -2;
 	}
 	catch (InterruptedException e)
 	{
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
+
     }
 
 }
