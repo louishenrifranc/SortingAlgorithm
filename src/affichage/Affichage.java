@@ -69,7 +69,7 @@ public class Affichage extends JFrame
     private Vector<Integer>        list_valeurs_a_trier;
     private FenetreHolder          fenetres_holder;
     private JFrame                 frame;
-
+    
     private int                    selectionAlgo;
 
     /**
@@ -150,7 +150,7 @@ public class Affichage extends JFrame
 		break;
 	    case Constante.codeBSshort:
 		if (!stat_ou_visualisation) listeTri
-		        .add( new affichage.BubbleSort(
+		        .add( new affichage.BubbleSortUtil(
 		                Constante.algorithme[index_tri_choisi[i]] ,
 		                temps_animation , valeurMax , valeurMin ) );
 		else if (stat_ou_visualisation) selectionAlgo |= Constante.codeBubbleSort;

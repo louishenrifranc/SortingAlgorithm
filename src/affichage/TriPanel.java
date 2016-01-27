@@ -31,7 +31,7 @@ public abstract class TriPanel extends JPanel implements Runnable
 	super();
 	this.nom = nom;
 	this.temps_animation = temps_animation;
-	setBackground( java.awt.Color.BLUE );
+	setBackground( java.awt.Color.DARK_GRAY );
 
     }
 
@@ -41,7 +41,8 @@ public abstract class TriPanel extends JPanel implements Runnable
     {
 	super.paintComponent( g );
 
-	g.setColor( Color.WHITE );
+	g.setColor( Color.LIGHT_GRAY );
+	
 	g.drawRect( BORDER_WIDTH , BORDER_WIDTH ,
 	        getWidth() - 2 * BORDER_WIDTH , getHeight() - 2 * BORDER_WIDTH );
 
@@ -49,11 +50,11 @@ public abstract class TriPanel extends JPanel implements Runnable
 	        java.awt.Font.BOLD , 18 );
 	java.awt.FontMetrics nameFontMetrix = getFontMetrics( nameFont );
 
-	g.setColor( Color.BLUE );
-	g.fillRect( ( getWidth() - nameFontMetrix.stringWidth( nom ) ) / 2 , 0 ,
+	g.setColor( Color.DARK_GRAY );
+	g.fillRect( ( getWidth() - nameFontMetrix.stringWidth( nom ) ) / 2 , 0,
 	        nameFontMetrix.stringWidth( nom ) , BORDER_WIDTH
 	                + nameFontMetrix.getAscent() / 3 );
-	g.setColor( Color.WHITE );
+	g.setColor( Color.lightGray );
 	g.setFont( nameFont );
 	g.drawString( nom ,
 	        ( getWidth() - nameFontMetrix.stringWidth( nom ) ) / 2 ,

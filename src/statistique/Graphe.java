@@ -143,7 +143,7 @@ public class Graphe extends JPanel
 
 	    Long x2 = ( ( maxY - minY ) * i / ( Y_HATCH_CNT - 1 ) ) + minY;
 	    g2.drawString( Long.toString( x2 ) , x0 - BORDER_GAP + 2 , y0
-		    + BORDER_GAP / 3 );
+		    + BORDER_GAP  );
 	}
 
 	// and for x axis
@@ -209,13 +209,13 @@ public class Graphe extends JPanel
 	for (int i = 0; i < largeur - 2; i++)
 	{
 	    // System.out.print(" "+m_matrice[ligne][i]);
-	    int y1 = ( int ) ( getHeight() - BORDER_GAP - m_matrice[ligne][i]
+	    int y1 = ( int ) ( getHeight() - 2* BORDER_GAP - m_matrice[ligne][i]
 		    * yScale );
 	    int x1 = ( int ) ( BORDER_GAP + biginteger[X][i + 1].intValue()
 		    * xScale );
 	    if (i == 0) g2.drawLine( BORDER_GAP , getHeight() - BORDER_GAP ,
 		    x1 , y1 );
-	    int y2 = ( int ) ( getHeight() - BORDER_GAP - m_matrice[ligne][i + 1]
+	    int y2 = ( int ) ( getHeight() - 2*BORDER_GAP - m_matrice[ligne][i + 1]
 		    * yScale );
 	    int x2 = ( int ) ( BORDER_GAP + biginteger[X][i + 2].intValue()
 		    * xScale );
@@ -228,7 +228,7 @@ public class Graphe extends JPanel
 	{
 	    int x = ( int ) ( BORDER_GAP + biginteger[X][i + 1].intValue()
 		    * xScale - GRAPH_POINT_WIDTH / 2 );
-	    int y = ( int ) ( getHeight() - BORDER_GAP - m_matrice[ligne][i]
+	    int y = ( int ) ( getHeight() - 2* BORDER_GAP - m_matrice[ligne][i]
 		    * yScale - GRAPH_POINT_WIDTH / 2 );
 	    int ovalW = GRAPH_POINT_WIDTH;
 	    int ovalH = GRAPH_POINT_WIDTH;

@@ -50,7 +50,7 @@ public class StatistiqueFenetre extends JFrame
     private static final long       serialVersionUID = 1L;
     private final static BigInteger add2             = new BigInteger(
 	                                                     Integer.toString( 2 ) ); // BigInteger
-
+    private Graphe                  grapheTemps , grapheNBValeur;
     // de
     // base
     public final static BigInteger  add1             = new BigInteger(
@@ -109,6 +109,7 @@ public class StatistiqueFenetre extends JFrame
 	textArea.setForeground( Color.white );
 	/* Recuperation des listes */
 	this._algos = algos;
+	this.setExtendedState( JFrame.MAXIMIZED_BOTH );
 	_listes = liste;
 	_valeurs = nombreValeurs;
 
@@ -150,7 +151,8 @@ public class StatistiqueFenetre extends JFrame
 
 	}
 
-	public void ajouterHeapSortUtil(Integer nombre, ArrayList<Integer> _heap)
+	private void ajouterHeapSortUtil(Integer nombre,
+	        ArrayList<Integer> _heap)
 	{
 	    _heap.add( nombre ); // Append to the heap
 	    nombreValeurDeplace = nombreValeurDeplace.add( add1 );
@@ -180,21 +182,24 @@ public class StatistiqueFenetre extends JFrame
 	    int swap;
 	    long tempsFin = 0;
 	    long tempsDebut = System.nanoTime();
+	    boolean change = false;
 	    for (int c = 1; c < _valeurs.elementAt( k ); c++)
 	    {
+		change = false;
 		for (int d = 0; d < _valeurs.elementAt( k ) - c; d++)
 		{
 		    if (list.get( d ) > list.get( d + 1 ))
 		    {
 
 			nombreValeurDeplace = nombreValeurDeplace.add( add2 );
-
+			change = true;
 			swap = list.get( d );
 			list.set( d , list.get( d + 1 ) );
 			list.set( d + 1 , swap );
 
 		    }
 		}
+		if (change == false) break;
 	    }
 	    tempsFin = System.nanoTime();
 	    long tempsTri = ( Math.abs( tempsDebut - tempsFin ) );
@@ -227,11 +232,11 @@ public class StatistiqueFenetre extends JFrame
 	}
 
 	/**
-	 * Remove the root from the heap
+	 * Supprime l'élément minimum du Tas
 	 * 
 	 * @throws InterruptedException
 	 */
-	public void enleverHeapSortUtil(int showIndex, Vector<Integer> list,
+	private void enleverHeapSortUtil(int showIndex, Vector<Integer> list,
 	        ArrayList<Integer> _heap)
 	{
 	    if (_heap.size() == 0) return;
@@ -285,7 +290,7 @@ public class StatistiqueFenetre extends JFrame
 
 	    Tuple buffer;
 	    long pas = 100 / ( _listes.size() * 4 );
-	    long min = 0 ;
+	    long min = 0;
 	    double progress;
 	    nombreValeurDeplace = new BigInteger( "0" );
 	    BigInteger temps[][] = new BigInteger[nombreAlgo + 1][_valeurs
@@ -300,13 +305,15 @@ public class StatistiqueFenetre extends JFrame
 		nbresvaleursdeplaces[0][i] = new BigInteger(
 		        Integer.toString( _valeurs.elementAt( i - 1 ) ) );
 	    }
-
 	    // System.out.println("[debug] nombreAlgo size ="+nombreAlgo+" nombre de valeurs = "+_valeurs.size());
 
 	    for (int i = 0; i < _listes.size(); i++)
 	    { // Pour toutes les listes
 		int j = 1;
 		int step = 1;
+		publish( "------------------------------------------------------ "
+		        + _valeurs.elementAt( i )
+		        + " ----------------------------------------------------" );
 
 		Vector<Integer> liste = _listes.elementAt( i ); // recupere la
 		                                                // liste
@@ -328,10 +335,12 @@ public class StatistiqueFenetre extends JFrame
 			    Integer.toString( Constante.codeSSshort ) );
 		    nbresvaleursdeplaces[j++][i + 1] = buffer.B();
 
-		    publish( "SelectionSort : Pour " + _valeurs.elementAt( i )
-			    + " valeurs: " + buffer.B().toString()
-			    + "nanosecondes et " + buffer.A().toString()
-			    + " valeurs deplaces" );
+		    publish( "SelectionSort : Pour "
+			    + _valeurs.elementAt( i )
+			    + " valeurs à trier, Le temps est de"
+			    + buffer.B().divide( new BigInteger( "1000" ) )
+			            .toString() + "microsecondes et "
+			    + buffer.A().toString() + " ont été déplacés" );
 		}
 		step++;
 		progress = min + ( i + step ) * pas;
@@ -351,10 +360,12 @@ public class StatistiqueFenetre extends JFrame
 			    Integer.toString( Constante.codeBSshort ) );
 		    nbresvaleursdeplaces[j++][i + 1] = buffer.B();
 
-		    publish( "BubbleSort : Pour " + _valeurs.elementAt( i )
-			    + " valeurs: " + buffer.B().toString()
-			    + "nanosecondes et " + buffer.A().toString()
-			    + " valeurs deplaces" );
+		    publish( "BubbleSort : Pour "
+			    + _valeurs.elementAt( i )
+			    + " valeurs à trier, Le temps est de"
+			    + buffer.B().divide( new BigInteger( "1000" ) )
+			            .toString() + "microsecondes et "
+			    + buffer.A().toString() + " ont été déplacés" );
 
 		}
 		step++;
@@ -380,10 +391,12 @@ public class StatistiqueFenetre extends JFrame
 			    Integer.toString( Constante.codeQSshort ) );
 		    nbresvaleursdeplaces[j++][i + 1] = buffer.B();
 
-		    publish( "Quicksort : Pour " + _valeurs.elementAt( i )
-			    + " valeurs: " + buffer.B().toString()
-			    + "nanosecondes et " + buffer.A().toString()
-			    + " valeurs deplaces" );
+		    publish( "Quicksort : Pour "
+			    + _valeurs.elementAt( i )
+			    + " valeurs à trier, Le temps est de"
+			    + buffer.B().divide( new BigInteger( "1000" ) )
+			            .toString() + "microsecondes et "
+			    + buffer.A().toString() + " ont été déplacés" );
 		}
 		step++;
 		progress = min + ( i + step ) * pas;
@@ -405,10 +418,12 @@ public class StatistiqueFenetre extends JFrame
 			    Integer.toString( Constante.codeHSshort ) );
 		    nbresvaleursdeplaces[j++][i + 1] = buffer.B();
 
-		    publish( "HeapSort : Pour " + _valeurs.elementAt( i )
-			    + " valeurs: " + buffer.B().toString()
-			    + "nanosecondes et " + buffer.A().toString()
-			    + " valeurs deplaces" );
+		    publish( "HeapSort : Pour "
+			    + _valeurs.elementAt( i )
+			    + " valeurs à trier, Le temps est de"
+			    + buffer.B().divide( new BigInteger( "1000" ) )
+			            .toString() + "microsecondes et "
+			    + buffer.A().toString() + " ont été déplacés" );
 
 		}
 
@@ -424,14 +439,14 @@ public class StatistiqueFenetre extends JFrame
 	     */
 	    // J'ai inversé : nombre de valeursdéplaces contient les temps et
 	    // temps contient les nombres de valeurs déplacés
-	    Graphe graphePanel = new Graphe( temps , nombreAlgo + 1 ,
+	    grapheTemps = new Graphe( temps , nombreAlgo + 1 ,
 		    _valeurs.size() + 1 , _algos , false );
-	    Graphe graphePanel1 = new Graphe( nbresvaleursdeplaces ,
-		    nombreAlgo + 1 , _valeurs.size() + 1 , _algos , true );
+	    grapheNBValeur = new Graphe( nbresvaleursdeplaces , nombreAlgo + 1 ,
+		    _valeurs.size() + 1 , _algos , true );
 
 	    JFrame frame = new JFrame( "Nombre de valeurs" );
-	    frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-	    frame.getContentPane().add( graphePanel );
+	    // frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+	    frame.getContentPane().add( grapheTemps );
 	    frame.setExtendedState( JFrame.MAXIMIZED_BOTH );
 	    frame.setBackground( Color.DARK_GRAY );
 	    frame.pack();
@@ -440,8 +455,8 @@ public class StatistiqueFenetre extends JFrame
 	    frame.setVisible( true );
 
 	    JFrame frame1 = new JFrame( "Temps" );
-	    frame1.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-	    frame1.getContentPane().add( graphePanel1 );
+	    // frame1.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+	    frame1.getContentPane().add( grapheNBValeur );
 	    frame1.setExtendedState( JFrame.MAXIMIZED_BOTH );
 	    frame1.setBackground( Color.DARK_GRAY );
 	    frame1.pack();

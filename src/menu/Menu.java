@@ -125,7 +125,7 @@ public class Menu extends JFrame
     private int                      valeur_min_choisi;
 
     private int                      valeur_max_choisi;
-
+    private Affichage                a;
     private JFrame                   frame;
 
     /**
